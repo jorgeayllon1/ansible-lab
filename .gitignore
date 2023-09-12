@@ -1,2 +1,5 @@
+# VSCode
 .vscode
-hosts
+
+# Ansible Vault Password
+.vault_pass.txt

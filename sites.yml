@@ -1,11 +1,9 @@
 ---
 # WEB SERVER
-- hosts: test
+- hosts: all
   become: true
 
   tasks:
-    - name: Configure password
-      ansible.builtin.user:
-        name: centos
-        password_expire_max: 99999
-        password_expire_min: 0
+    - name: Update OS
+      yum:
+        update_only: yes
