@@ -1,0 +1,11 @@
+---
+# WEB SERVER
+- hosts: test
+  become: true
+
+  tasks:
+    - name: Configure password
+      ansible.builtin.user:
+        name: centos
+        password_expire_max: 99999
+        password_expire_min: 0

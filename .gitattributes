@@ -1,0 +1,4 @@
+*.yml text eol=lf charset=UTF-8
+*.py text eol=lf charset=UTF-8
+*.ini text eol=lf charset=UTF-8
+*.cfg text eol=lf charset=UTF-8

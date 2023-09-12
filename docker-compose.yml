@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  ansible_master:
+    container_name: ansible_master
+    image: python:3
+    volumes:
+      - my_volume:/app
+    ports:
+      - 2222:22
+
+volumes:
+  my_volume:
