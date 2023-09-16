@@ -1,5 +1,5 @@
 ---
-  - name: Ensure SELinux is set to enforcing mode
+  - name: Ajout de la configuration minimale 
     hosts: all
     # become: yes
 
