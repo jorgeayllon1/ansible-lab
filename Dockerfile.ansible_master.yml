@@ -1,0 +1,12 @@
+FROM almalinux:9.2
+
+RUN dnf -y update && \
+    dnf -y install iproute && \
+    dnf -y install epel-release && \
+    dnf -y install ansible 
+
+RUN dnf clean all
+
+COPY . /ansible/
+
+WORKDIR /ansible

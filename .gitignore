@@ -1,5 +1,6 @@
 # VSCode
 .vscode
 
-# Ansible Vault Password
+# Secret files
 .vault_pass.txt
+.github_token.txt

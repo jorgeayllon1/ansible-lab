@@ -1,2 +1,2 @@
-.vault_pass.txt
-Dockerfile
+# Ajouter uniquement ce qui ne permet pas de dev.
+# Le répertoire . est envoyé entièrement dans le conteneur pour l'utiliser comme environnement de dev.

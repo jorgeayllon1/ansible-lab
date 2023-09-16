@@ -1,13 +1,12 @@
-version: "3"
+version: '3'
 
 services:
-  ansible_master:
-    container_name: ansible_master
-    image: python:3
-    volumes:
-      - my_volume:/app
-    ports:
-      - 2222:22
+  master:
+    image: ansible_master:latest
+    network_mode: host
+    secrets:
+      - github_token
 
-volumes:
-  my_volume:
+secrets:
+  github_token:
+    file: ./.github_token.txt
