@@ -1,6 +1,13 @@
-FROM python:3
+FROM almalinux:9.2
 
-WORKDIR /app
-COPY . /app
+RUN dnf -y install iproute
 
-# RUN pip install --no-cache-dir -r requirements.txt 
+RUN dnf -y update
+RUN dnf -y install epel-release
+RUN dnf -y install ansible 
+
+RUN dnf clean all
+
+COPY . /ansible/
+
+WORKDIR /ansible
