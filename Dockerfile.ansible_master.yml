@@ -1,12 +1,25 @@
 FROM almalinux:9.2
 
+LABEL maintainer="jorge@mail.fr"
+
 RUN dnf -y update && \
     dnf -y install iproute && \
     dnf -y install epel-release && \
-    dnf -y install ansible 
+    dnf config-manager --set-enabled crb && \
+    dnf -y install ansible && \
+    dnf -y install ansible-lint
 
 RUN dnf clean all
 
-COPY . /ansible/
+RUN useradd -ms /bin/bash ansible-user && \
+    echo 'ansible-user:password' | chpasswd && \
+    echo 'ansible ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/ansible-user/.bashrc
 
-WORKDIR /ansible
+COPY . /home/ansible-user/code
+RUN chown -R ansible-user:ansible-user /home/ansible-user/
+
+USER ansible-user
+WORKDIR /home/ansible-user
+
+CMD ["tail","-f","/dev/null"]
