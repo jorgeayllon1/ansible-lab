@@ -3,13 +3,14 @@ FROM almalinux:9.2
 LABEL maintainer="jorge@mail.fr"
 
 RUN dnf -y update && \
-    dnf -y install iproute && \
-    dnf -y install epel-release && \
-    dnf config-manager --set-enabled crb && \
-    dnf -y install ansible && \
-    dnf -y install ansible-lint
+    dnf -y install iproute git && \
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python3 get-pip.py && \
+    pip install ansible && \
+    pip install ansible-lint
 
-RUN dnf clean all
+RUN dnf clean all && \
+    pip cache purge
 
 RUN useradd -ms /bin/bash ansible-user && \
     echo 'ansible-user:password' | chpasswd && \
