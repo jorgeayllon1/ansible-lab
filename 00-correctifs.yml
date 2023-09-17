@@ -1,11 +1,11 @@
 ---
-  - name: Ajout de la configuration minimale 
-    hosts: all
-    # become: yes
+- name: Ajout de la configuration minimale
+  hosts: all
+  # become: yes
 
-    tasks:
+  tasks:
     - name: Ajout de la commande ll
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: ~/.bashrc
         line: "alias = 'ls -phAl'"
         insertafter: EOL

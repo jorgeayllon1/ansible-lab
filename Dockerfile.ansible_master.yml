@@ -3,11 +3,11 @@ FROM almalinux:9.2
 LABEL maintainer="jorge@mail.fr"
 
 RUN dnf -y update && \
-    dnf -y install iproute git && \
-    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    dnf -y install iproute git sshpass
+
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
-    pip install ansible && \
-    pip install ansible-lint
+    pip install ansible ansible-lint
 
 RUN dnf clean all && \
     pip cache purge
