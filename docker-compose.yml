@@ -4,9 +4,5 @@ services:
   master:
     image: ansible_master:latest
     network_mode: host
-    secrets:
-      - github_token
-
-secrets:
-  github_token:
-    file: ./.github_token.txt
+    volumes:
+      - .:/home/ansible-user/code
