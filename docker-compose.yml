@@ -3,6 +3,7 @@ version: '3'
 services:
   master:
     image: ansible_master:latest
-    network_mode: host
+    dns: 192.168.1.1
+    network_mode: bridge
     volumes:
       - .:/home/ansible-user/code
