@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 FILE_KEY=~/.sh/id_rsa_ansible.pub
 user=$1

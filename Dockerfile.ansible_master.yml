@@ -20,7 +20,10 @@ RUN useradd -G wheel -s /bin/bash ansible-user && \
     echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/ansible-user/.bashrc && \
     chown -R ansible-user:ansible-user /home/ansible-user/
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 USER ansible-user
 WORKDIR /home/ansible-user
 
-ENTRYPOINT ["tail","-f","/dev/null"]
+ENTRYPOINT ["/entrypoint.sh"]

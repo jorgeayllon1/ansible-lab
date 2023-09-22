@@ -1,4 +1,2 @@
 ansible_ssh_user : centos
-ansible_ssh_password : centos
 ansible_become_pass: centos
-ansible_python_interpreter : /usr/bin/python3.9
