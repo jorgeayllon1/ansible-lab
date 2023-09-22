@@ -1,0 +1,8 @@
+---
+- name: Basic ping play
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Basic ping
+      ansible.builtin.ping:
