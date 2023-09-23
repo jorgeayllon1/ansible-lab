@@ -1,6 +1,9 @@
 # VSCode
 .vscode
 
+# Binaries files
+*.tar*
+
 # Secret files
 .vault_pass.txt
 .github_token.txt

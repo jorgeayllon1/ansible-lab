@@ -1,0 +1,6 @@
+---
+- name: Master playbook
+  hosts: all
+  become: true
+  roles:
+    - wildfly

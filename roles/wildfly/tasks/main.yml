@@ -1,0 +1,73 @@
+---
+# Playbooks complet, à décomposer
+- name: 0 - Désactivation du SELinux
+  ansible.posix.selinux:
+    state: disabled
+
+- name: 0- Désactivation du parfeux
+  ansible.builtin.service:
+    name: firewalld
+    state: stopped
+    enabled: false
+
+- name: 1 - Installation de java
+  ansible.builtin.dnf:
+    name: java-1.8.0-openjdk
+    state: present
+
+- name: 2 - Création du groupe
+  ansible.builtin.group:
+    name: wildfly
+    state: present
+
+- name: 3 - Création de l'utilisateur
+  ansible.builtin.user:
+    name: wildfly
+    group: wildfly
+    state: present
+    home: /opt/wildfly
+    shell: /sbin/nologin
+    comment: Utilisateur pour le service wildfly
+
+- name: 4 - Mise en place des fichiers wildfly
+  ansible.builtin.unarchive:
+    src: wildfly-24.0.1.Final.tar.gz
+    dest: /opt
+    group: wildfly
+    owner: wildfly
+
+- name: 5 - Mise en place de la configuration
+  ansible.builtin.copy:
+    src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf
+    remote_src: true
+    dest: /etc/wildfly/
+    group: wildfly
+    owner: wildfly
+    mode: '0644'
+
+- name: 6 - Mise en place du script de lancement
+  ansible.builtin.copy:
+    src: /opt/wildfly/docs/contrib/scripts/systemd/launch.sh
+    remote_src: true
+    dest: /opt/wildfly/bin/
+    group: wildfly
+    owner: wildfly
+    mode: '0755'
+
+- name: 7 - Mise en place du fichier service
+  ansible.builtin.copy:
+    src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service
+    remote_src: true
+    dest: /etc/systemd/system/
+    group: wildfly
+    owner: wildfly
+    mode: '0755'
+
+- name: 8 - Lancement du service
+  ansible.builtin.service:
+    name: wildfly
+    state: started
+    enabled: true
+
+- name: 9 - Reboot
+  ansible.builtin.reboot:
