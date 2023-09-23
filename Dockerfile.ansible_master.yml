@@ -1,7 +1,7 @@
 FROM almalinux:9.2
 
 LABEL maintainer="jorge@mail.fr"
-ENV TIMEZONE=Europe/Paris
+ARG TIMEZONE=Europe/Paris
 
 RUN dnf -y update && \
     dnf -y install iproute git sshpass bind-utils tree
@@ -21,6 +21,8 @@ RUN useradd -G wheel -s /bin/bash ansible-user && \
     echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/ansible-user/.bashrc && \
     chown -R ansible-user:ansible-user /home/ansible-user/ && \
     rm -rf /etc/localtime && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
+ENV ANSIBLE_CONFIG="~/.ansible.cfg"
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
