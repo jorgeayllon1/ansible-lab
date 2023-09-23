@@ -1,3 +1,2 @@
 ansible_ssh_user : centos
 ansible_become_pass: centos
-chrony_server: 0.fr.pool.ntp.org
