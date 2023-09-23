@@ -1,9 +1,10 @@
 FROM almalinux:9.2
 
 LABEL maintainer="jorge@mail.fr"
+ENV TIMEZONE=Europe/Paris
 
 RUN dnf -y update && \
-    dnf -y install iproute git sshpass bind-utils
+    dnf -y install iproute git sshpass bind-utils tree
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
@@ -18,7 +19,8 @@ RUN dnf clean all && \
 RUN useradd -G wheel -s /bin/bash ansible-user && \
     echo 'ansible-user:password' | chpasswd && \
     echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/ansible-user/.bashrc && \
-    chown -R ansible-user:ansible-user /home/ansible-user/
+    chown -R ansible-user:ansible-user /home/ansible-user/ && \
+    rm -rf /etc/localtime && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
