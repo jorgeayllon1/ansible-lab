@@ -4,7 +4,7 @@
   ansible.posix.selinux:
     state: disabled
 
-- name: 0- Désactivation du parfeux
+- name: 0 - Désactivation du parfeux
   ansible.builtin.service:
     name: firewalld
     state: stopped
@@ -31,7 +31,7 @@
 
 - name: 4 - Mise en place des fichiers wildfly
   ansible.builtin.unarchive:
-    src: wildfly-24.0.1.Final.tar.gz
+    src: '{{ wildfly_tar_name }}'
     dest: /opt
     group: wildfly
     owner: wildfly
