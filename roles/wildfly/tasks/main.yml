@@ -63,6 +63,22 @@
     owner: wildfly
     mode: '0755'
 
+# - name: Epic - Mise en place de l'utilisateur admin standalone wildfly
+#   ansible.builtin.template:
+#     src: mgmt-users.properties.j2
+#     dest: /opt/wildfly/standalone/configuration/mgmt-users.properties
+#     owner: wildfly
+#     group: wildfly
+#     mode: '0600'
+
+# - name: Epic - Mise en place de l'utilisateur admin domain wildfly
+#   ansible.builtin.template:
+#     src: mgmt-users.properties.j2
+#     dest: /opt/wildfly/domain/configuration/mgmt-users.properties
+#     owner: wildfly
+#     group: wildfly
+#     mode: '0600'
+
 - name: 8 - Lancement du service
   ansible.builtin.service:
     name: wildfly
