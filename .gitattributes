@@ -7,3 +7,4 @@
 *.md text eol=lf charset=UTF-8
 *.properties* eol=lf charset=UTF-8
 *.war filter=lfs diff=lfs merge=lfs -text
+*.json eol=lf charset=UTF-8

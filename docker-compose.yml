@@ -3,8 +3,14 @@ version: '3'
 services:
   master:
     image: ansible_master:latest
-    build: Dockerfile.ansible_master.yml
+    container_name: ansible
+    hostname: ansible-master
+    build:
+      dockerfile: ./Dockerfile.ansible_master.yml
+      context: .
     dns: 192.168.1.1
     network_mode: bridge
     volumes:
-      - .:/home/ansible-user/code
+      - type: bind
+        source: .
+        target: /home/ansible-user/code
