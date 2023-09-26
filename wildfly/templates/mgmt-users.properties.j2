@@ -24,4 +24,4 @@
 # The following illustrates how an admin user could be defined, this
 # is for illustration only and does not correspond to a usable password.
 #
-{{ wildfly_admin_name }}={{ HA1 | wildfly_password_filter }}
+{{ wildfly_admin_name }}={{ wildfly_digest_format | wildfly_password_filter }}
