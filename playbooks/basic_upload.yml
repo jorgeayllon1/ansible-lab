@@ -1,0 +1,13 @@
+---
+# TODO : le serveur ne prend pas en compte la conf, à corriger.
+- name: Basic deploy
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Deploy sample
+      ansible.builtin.copy:
+        src: ../files/sample.war
+        dest: /tmp
+        owner: wildfly
+        mode: '0644'

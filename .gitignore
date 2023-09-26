@@ -1,6 +1,9 @@
 # VSCode
 .vscode
 
+# Garbage
+*.pyc
+
 # Binaries files
 *.tar*
 *.war
