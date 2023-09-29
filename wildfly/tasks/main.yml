@@ -1,14 +1,4 @@
 ---
-- name: 0 - Désactivation du SELinux
-  ansible.posix.selinux:
-    state: disabled
-
-- name: 0 - Désactivation du parfeux
-  ansible.builtin.service:
-    name: firewalld
-    state: stopped
-    enabled: false
-
 - name: 1 - Installation de java
   ansible.builtin.dnf:
     name: java-1.8.0-openjdk
@@ -91,6 +81,12 @@
     name: wildfly
     state: started
     enabled: true
+
+- name: 8 - Configuration du firewalld
+  ansible.posix.firewalld:
+    port: 8080/tcp
+    permanent: true
+    state: enabled
 
 - name: 8 - Reboot
   ansible.builtin.reboot:
