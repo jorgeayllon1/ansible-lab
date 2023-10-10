@@ -8,9 +8,17 @@ services:
     build:
       dockerfile: ./Dockerfile.ansible_master.yml
       context: .
-    dns: 162.168.56.2
-    network_mode: bridge
+    dns: 162.168.56.1
+    networks:
+    - mynetwork
     volumes:
       - type: bind
         source: .
         target: /home/ansible-user/code
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 162.168.56.0/24
