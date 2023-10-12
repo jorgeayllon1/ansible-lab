@@ -1,0 +1,20 @@
+FROM almalinux:9.2
+
+LABEL maintener="jorge@mail.fr"
+ARG TIMEZONE=Europe/Paris
+
+RUN dnf -y update && \
+    dnf -y install iproute git sshpass bind-utils tree
+
+RUN dnf clean all
+
+RUN useradd -G wheel -s /bin/bash slave-user && \
+    echo 'slave-user:password' | chpasswd && \
+    echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/slave-user/.bashrc && \
+    chown -R slave-user:slave-user /home/slave-user/ && \
+    rm -rf /etc/localtime && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
+USER slave-user
+WORKDIR /home/slave-user
+
+ENTRYPOINT [ "tail","-f","/dev/null" ]

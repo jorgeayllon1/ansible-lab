@@ -3,7 +3,7 @@ version: '3'
 services:
   master:
     image: ansible_master:latest
-    container_name: ansible
+    container_name: master
     hostname: ansible-master
     build:
       dockerfile: ./Dockerfile.ansible_master.yml
@@ -15,6 +15,19 @@ services:
       - type: bind
         source: .
         target: /home/ansible-user/code
+  
+  slave-1:
+    image: yum_slave:latest
+    container_name: slave-1
+    hostname: yum-slave
+    build:
+      dockerfile: ./Dockerfile.slave.yml
+      context: .
+    dns: 162.168.56.1
+    ports:
+      - 2222:22
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:

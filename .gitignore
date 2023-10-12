@@ -7,3 +7,5 @@
 # Binaries files
 *.tar*
 *.war
+
+tmp/
