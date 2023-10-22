@@ -4,7 +4,7 @@ LABEL maintainer="jorge@mail.fr"
 ARG TIMEZONE=Europe/Paris
 
 RUN dnf -y update && \
-    dnf -y install iproute git sshpass bind-utils tree
+    dnf -y install iproute git bind-utils tree openssh-clients
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
