@@ -4,19 +4,15 @@ LABEL maintainer="jorge@mail.fr"
 ARG TIMEZONE=Europe/Paris
 
 RUN dnf -y update && \
-    dnf -y install iproute git bind-utils tree openssh-clients
-
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    dnf -y install iproute git bind-utils tree openssh-clients && \
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
-    pip install ansible ansible-lint
-
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash && \
-    dnf -y install git-lfs
-
-RUN dnf clean all && \
-    pip cache purge
-
-RUN useradd -G wheel -s /bin/bash ansible-user && \
+    pip install ansible ansible-lint && \
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash && \
+    dnf -y install git-lfs && \
+    dnf clean all && \
+    pip cache purge && \
+    useradd -G wheel -s /bin/bash ansible-user && \
     echo 'ansible-user:password' | chpasswd && \
     echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/ansible-user/.bashrc && \
     chown -R ansible-user:ansible-user /home/ansible-user/ && \

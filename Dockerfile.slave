@@ -1,14 +1,12 @@
 FROM almalinux:9.2
 
-LABEL maintener="jorge@mail.fr"
+LABEL maintainer="jorge@mail.fr"
 ARG TIMEZONE=Europe/Paris
 
 RUN dnf -y update && \
-    dnf -y install iproute git sshpass bind-utils tree openssh-server
-
-RUN dnf clean all
-
-RUN useradd -G wheel -s /bin/bash slave-user && \
+    dnf -y install iproute git sshpass bind-utils tree openssh-server && \
+    dnf clean all && \
+    useradd -G wheel -s /bin/bash slave-user && \
     echo 'slave-user:password' | chpasswd && \
     echo 'alias ll="ls --group-directories-first -phAl --color=auto"' >> /home/slave-user/.bashrc && \
     chown -R slave-user:slave-user /home/slave-user/ && \
